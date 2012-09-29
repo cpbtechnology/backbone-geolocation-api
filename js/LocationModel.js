@@ -4,6 +4,7 @@
 */
 var LocationModel = Backbone.Model.extend({
 	'defaults': {
+		'geoLocationServiceURL': 'http://where.yahooapis.com/geocode?gflags=R&flags=J&appid=nUSDKI5g&location=',
 		'showErrorMessages': false,
 		'localStorageTimeoutAsMS': 3600000
 	},
@@ -73,7 +74,7 @@ var LocationModel = Backbone.Model.extend({
 	*/
 	'getZipCode': function(latitude, longitude) {
 		var model = this;
-		var geoLocationServiceURL = ON.config.get('geoLocationServiceURL') + latitude + '+' + longitude;
+		var geoLocationServiceURL = model.get('geoLocationServiceURL') + latitude + '+' + longitude;
 
 		$.getJSON(geoLocationServiceURL, function(data) {
 			if (data.ResultSet !== undefined && data.ResultSet.Results !== undefined) {
