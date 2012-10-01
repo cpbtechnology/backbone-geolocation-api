@@ -8,6 +8,11 @@ var LocationModel = Backbone.Model.extend({
 		'showErrorMessages': false,
 		'localStorageTimeoutAsMS': 3600000
 	},
+
+	'initialize': function() {
+		var model = this;
+		log('Backbone : GeolocationModel : Initialized');
+	},
 /**
 		@name LocationModel#geolocate
 		@function
@@ -77,11 +82,11 @@ var LocationModel = Backbone.Model.extend({
 		var geoLocationServiceURL = model.get('geoLocationServiceURL') + latitude + '+' + longitude;
 
 		$.getJSON(geoLocationServiceURL, function(data) {
-			if (data.ResultSet !== undefined && data.ResultSet.Results !== undefined) {
-				var newZipCode = data.ResultSet.Results[0].uzip;
+			if (data.ResultSet !== undefined && data.ResultSet.Result !== undefined) {
+				var newZipCode = data.ResultSet.Result.uzip;
 				var zipCodeJSON = {
-					zipCode: newZipCode,
-					timestamp: new Date().getTime()
+					'zipCode': newZipCode,
+					'timestamp': new Date().getTime()
 				};
 				localStorage.setItem('storedZipCode', JSON.stringify(zipCodeJSON));
 				model.setZipCode(newZipCode);
