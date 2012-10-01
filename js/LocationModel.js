@@ -91,14 +91,14 @@ var LocationModel = Backbone.Model.extend({
 				localStorage.setItem('storedZipCode', JSON.stringify(zipCodeJSON));
 				model.setZipCode(newZipCode);
 			} else if (data.ResultSet.Error !== undefined) {
-				if (!this.showErrors()) {
+				if (!model.showErrors()) {
 					return;
 				}
 				model.trigger('error', model.set({
 					'errorMessage': 'PlaceFinder API - ' + data.ResultSet.ErrorMessage
 				}));
 			} else {
-				if (!this.showErrors()) {
+				if (!model.showErrors()) {
 					return;
 				}
 				model.trigger('error', model.set({
